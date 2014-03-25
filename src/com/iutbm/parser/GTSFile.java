@@ -7,6 +7,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +18,54 @@ public class GTSFile {
 	private List<Edge> edges;
 	private List<Triangle> triangles;
 
+	public GTSFile(URL url) throws Exception {
+		BufferedReader br;
+		try {
+			br = new BufferedReader(new InputStreamReader(url.openStream()));
+			String line;
+
+			line = br.readLine();
+
+			nbPoints = Integer.parseInt(line.split(" ")[0]);
+			nbEdges = Integer.parseInt(line.split(" ")[1]);
+			nbTriangles = Integer.parseInt(line.split(" ")[2]);
+
+			points = new ArrayList<Point>();
+			edges = new ArrayList<Edge>();
+			triangles = new ArrayList<Triangle>();
+
+			int n = 0;
+			double x, y, z;
+			Point a, b;
+			Edge c, d, e;
+			while ((line = br.readLine()) != null) {
+				n += 1;
+				if (n <= nbPoints) {
+					x = Double.parseDouble(line.split(" ")[0]);
+					y = Double.parseDouble(line.split(" ")[1]);
+					z = Double.parseDouble(line.split(" ")[2]);
+					points.add(new Point(x, y, z));
+				} else if (n <= (nbPoints + nbEdges)) {
+					a = points.get(Integer.parseInt(line.split(" ")[0]) - 1);
+					b = points.get(Integer.parseInt(line.split(" ")[1]) - 1);
+					edges.add(new Edge(a, b));
+				} else if (n <= (nbPoints + nbEdges + nbTriangles)) {
+					c = edges.get(Integer.parseInt(line.split(" ")[0]) - 1);
+					d = edges.get(Integer.parseInt(line.split(" ")[1]) - 1);
+					e = edges.get(Integer.parseInt(line.split(" ")[2]) - 1);
+					triangles.add(new Triangle(c, d, e));
+				} else
+					throw new Exception("Le fichier n'est pas valide");
+			}
+			br.close();
+		} catch (IOException e) {
+			System.err.println("Erreur de lecture du contenu en ligne.");
+			e.printStackTrace();
+		}
+	}
+
 	@SuppressWarnings("resource")
-	public GTSFile(String path) {
+	public GTSFile(String path) throws Exception {
 		File gts;
 		InputStreamReader isr;
 		BufferedReader br;
@@ -66,8 +114,6 @@ public class GTSFile {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 		}
@@ -120,4 +166,13 @@ public class GTSFile {
 	public void setTriangles(List<Triangle> triangles) {
 		this.triangles = triangles;
 	}
+
+	/*
+	public static void main(String[] args) throws MalformedURLException,
+			Exception {
+		for (Triangle t : new GTSFile(new URL(
+				"http://ns303921.ovh.net/gts/cube.gts")).getTriangles()) {
+			System.out.println(t);
+		}
+	}/**/
 }
