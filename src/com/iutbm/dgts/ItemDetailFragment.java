@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.iutbm.dgts.dummy.DummyContent;
-import com.iutbm.dgts.dummy.DummyItem;
+import com.iutbm.dgts.dummy.GtsTab;
 
 /**
  * A fragment representing a single Item detail screen. This fragment is either
@@ -25,7 +25,7 @@ public class ItemDetailFragment extends Fragment {
 	/**
 	 * The dummy content this fragment is presenting.
 	 */
-	private DummyItem mItem;
+	private GtsTab mItem;
 
 	/**
 	 * Mandatory empty constructor for the fragment manager to instantiate the

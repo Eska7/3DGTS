@@ -1,5 +1,7 @@
 package com.iutbm.parser;
 
+import com.iutbm.dgts.exception.IvalidGTSfileException;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
@@ -18,7 +20,7 @@ public class GTSFile {
 	private List<Edge> edges;
 	private List<Triangle> triangles;
 
-	public GTSFile(URL url) throws Exception {
+	public GTSFile(URL url) throws IvalidGTSfileException {
 		BufferedReader br;
 		try {
 			br = new BufferedReader(new InputStreamReader(url.openStream()));
@@ -55,7 +57,7 @@ public class GTSFile {
 					e = edges.get(Integer.parseInt(line.split(" ")[2]) - 1);
 					triangles.add(new Triangle(c, d, e));
 				} else
-					throw new Exception("Le fichier n'est pas valide");
+					throw new IvalidGTSfileException(url.toString());
 			}
 			br.close();
 		} catch (IOException e) {
@@ -65,7 +67,7 @@ public class GTSFile {
 	}
 
 	@SuppressWarnings("resource")
-	public GTSFile(String path) throws Exception {
+	public GTSFile(String path) throws IvalidGTSfileException {
 		File gts;
 		InputStreamReader isr;
 		BufferedReader br;
@@ -106,7 +108,7 @@ public class GTSFile {
 					e = edges.get(Integer.parseInt(line.split(" ")[2]) - 1);
 					triangles.add(new Triangle(c, d, e));
 				} else
-					throw new Exception("Le fichier n'est pas valide");
+					throw new IvalidGTSfileException(path);
 			}
 
 			br.close();
@@ -167,12 +169,11 @@ public class GTSFile {
 		this.triangles = triangles;
 	}
 
-	/*
-	public static void main(String[] args) throws MalformedURLException,
-			Exception {
-		for (Triangle t : new GTSFile(new URL(
-				"http://ns303921.ovh.net/gts/cube.gts")).getTriangles()) {
-			System.out.println(t);
-		}
-	}/**/
+    @Override
+    public String toString(){
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Triangle t : this.getTriangles())  stringBuilder.append(t+"\n");
+        return stringBuilder.toString();
+    }
+
 }
