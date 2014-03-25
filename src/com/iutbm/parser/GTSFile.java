@@ -9,6 +9,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,11 +19,51 @@ public class GTSFile {
 	private List<Point> points;
 	private List<Edge> edges;
 	private List<Triangle> triangles;
-	private URL url;
 
-	public GTSFile(URL url) {
-		this.url = url;
-		new Thread(this).start();
+	public GTSFile(URL url) throws IvalidGTSfileException {
+		BufferedReader br;
+		try {
+			br = new BufferedReader(new InputStreamReader(url.openStream()));
+			String line;
+
+			line = br.readLine();
+
+			nbPoints = Integer.parseInt(line.split(" ")[0]);
+			nbEdges = Integer.parseInt(line.split(" ")[1]);
+			nbTriangles = Integer.parseInt(line.split(" ")[2]);
+
+			points = new ArrayList<Point>();
+			edges = new ArrayList<Edge>();
+			triangles = new ArrayList<Triangle>();
+
+			int n = 0;
+			double x, y, z;
+			Point a, b;
+			Edge c, d, e;
+			while ((line = br.readLine()) != null) {
+				n += 1;
+				if (n <= nbPoints) {
+					x = Double.parseDouble(line.split(" ")[0]);
+					y = Double.parseDouble(line.split(" ")[1]);
+					z = Double.parseDouble(line.split(" ")[2]);
+					points.add(new Point(x, y, z));
+				} else if (n <= (nbPoints + nbEdges)) {
+					a = points.get(Integer.parseInt(line.split(" ")[0]) - 1);
+					b = points.get(Integer.parseInt(line.split(" ")[1]) - 1);
+					edges.add(new Edge(a, b));
+				} else if (n <= (nbPoints + nbEdges + nbTriangles)) {
+					c = edges.get(Integer.parseInt(line.split(" ")[0]) - 1);
+					d = edges.get(Integer.parseInt(line.split(" ")[1]) - 1);
+					e = edges.get(Integer.parseInt(line.split(" ")[2]) - 1);
+					triangles.add(new Triangle(c, d, e));
+				} else
+					throw new IvalidGTSfileException(url.toString());
+			}
+			br.close();
+		} catch (IOException e) {
+			System.err.println("Erreur de lecture du contenu en ligne.");
+			e.printStackTrace();
+		}
 	}
 
 	@SuppressWarnings("resource")
@@ -134,54 +175,5 @@ public class GTSFile {
         for (Triangle t : this.getTriangles())  stringBuilder.append(t+"\n");
         return stringBuilder.toString();
     }
-    
-    @Override
-	public void run() {
-		BufferedReader br;
-		try {
-			br = new BufferedReader(new InputStreamReader(this.url.openStream()));
-			String line;
-
-			line = br.readLine();
-
-			nbPoints = Integer.parseInt(line.split(" ")[0]);
-			nbEdges = Integer.parseInt(line.split(" ")[1]);
-			nbTriangles = Integer.parseInt(line.split(" ")[2]);
-
-			points = new ArrayList<Point>();
-			edges = new ArrayList<Edge>();
-			triangles = new ArrayList<Triangle>();
-
-			int n = 0;
-			double x, y, z;
-			Point a, b;
-			Edge c, d, e;
-			while ((line = br.readLine()) != null) {
-				n += 1;
-				if (n <= nbPoints) {
-					x = Double.parseDouble(line.split(" ")[0]);
-					y = Double.parseDouble(line.split(" ")[1]);
-					z = Double.parseDouble(line.split(" ")[2]);
-					points.add(new Point(x, y, z));
-				} else if (n <= (nbPoints + nbEdges)) {
-					a = points.get(Integer.parseInt(line.split(" ")[0]) - 1);
-					b = points.get(Integer.parseInt(line.split(" ")[1]) - 1);
-					edges.add(new Edge(a, b));
-				} else if (n <= (nbPoints + nbEdges + nbTriangles)) {
-					c = edges.get(Integer.parseInt(line.split(" ")[0]) - 1);
-					d = edges.get(Integer.parseInt(line.split(" ")[1]) - 1);
-					e = edges.get(Integer.parseInt(line.split(" ")[2]) - 1);
-					triangles.add(new Triangle(c, d, e));
-				} else
-					throw new Exception("Le fichier n'est pas valide");
-			}
-			br.close();
-		} catch (IOException e) {
-			System.err.println("Erreur de lecture du contenu en ligne.");
-			e.printStackTrace();
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
-	}
 
 }
