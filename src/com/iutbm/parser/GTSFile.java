@@ -14,6 +14,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+
+// TODO asynctask
+
 public class GTSFile {
 	private int nbPoints, nbEdges, nbTriangles;
 	private List<Point> points;
