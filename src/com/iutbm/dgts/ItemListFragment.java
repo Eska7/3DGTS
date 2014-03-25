@@ -1,10 +1,13 @@
 package com.iutbm.dgts;
 
 import android.app.Activity;
+import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 
 /**
@@ -72,6 +75,9 @@ public class ItemListFragment extends ListFragment {
 		setListAdapter(new ArrayAdapter<GraphTab>(getActivity(),
 				android.R.layout.simple_list_item_activated_1,
 				android.R.id.text1, TabBuilder.ITEMS));
+
+        //setListAdapter(new TabList());
+
 	}
 
 	@Override
@@ -114,7 +120,7 @@ public class ItemListFragment extends ListFragment {
 
 		// Notify the active callbacks interface (the activity, if the
 		// fragment is attached to one) that an item has been selected.
-		mCallbacks.onItemSelected(TabBuilder.ITEMS.get(position).id);
+		mCallbacks.onItemSelected(TabBuilder.ITEMS.get(position).getId());
 	}
 
 	@Override

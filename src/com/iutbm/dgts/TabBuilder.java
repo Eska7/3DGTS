@@ -2,6 +2,9 @@ package com.iutbm.dgts;
 
 import android.app.Activity;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,12 +29,14 @@ public class TabBuilder {
 	public static Map<String, GraphTab> ITEM_MAP = new HashMap<String, GraphTab>();
 
 	static {
-        // TODO CA MARCHE PAS!!!!!
-        //Activity act = new Activity();
-		//addItem(new GraphTab("1", act.getResources().getResourceName(R.raw.bunny)));
-		//addItem(new GraphTab("2",act.getResources().getResourceName(R.raw.cone)));
-		//addItem(new GraphTab("3",act.getResources().getResourceName(R.raw.cube)));
-	}
+        Integer i = 1;
+        for(Map.Entry<String,String> entry : Source.FICHIER.entrySet()){
+            addItem(new GraphTab(i.toString(), entry.getKey(), entry.getKey()));
+        }
+        addItem(new GraphTab("1","1a","http://gts.sourceforge.net/samples/bunny.gts.gz"));
+        addItem(new GraphTab("2","2a","2b"));
+        addItem(new GraphTab("3","3a","3b"));
+    }
 
 	private static void addItem(GraphTab item) {
 		ITEMS.add(item);
