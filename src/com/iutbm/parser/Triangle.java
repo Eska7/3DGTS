@@ -67,7 +67,7 @@ public class Triangle {
 		this.c = c;
 	}
 	
-	public float[] gettriangleCoords() {
+	public float[] getTriangleCoords() {
 		return this.triangleCoords;
 	}
 
