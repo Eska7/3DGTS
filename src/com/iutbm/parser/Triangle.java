@@ -4,6 +4,8 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
+import javax.microedition.khronos.opengles.GL10;
+
 public class Triangle {
 	private FloatBuffer vertexBuffer;
 	static final int COORDS_PER_VERTEX = 3;
