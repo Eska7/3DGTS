@@ -66,6 +66,10 @@ public class Triangle {
 	public void setC(Edge c) {
 		this.c = c;
 	}
+	
+	public float[] gettriangleCoords() {
+		return this.triangleCoords;
+	}
 
 	public void draw(GL10 gl) {
 		gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
