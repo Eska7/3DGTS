@@ -1,6 +1,6 @@
 package com.iutbm.dgts.dummy;
 
-import com.iutbm.dgts.exception.IvalidGTSfileException;
+import com.iutbm.dgts.exception.InvalidGTSFileException;
 import com.iutbm.parser.GTSFile;
 
 import java.net.MalformedURLException;
@@ -26,7 +26,7 @@ public class GtsTab {
         try {
             GTSFile file = new GTSFile(new URL(url));
             return file.toString();
-        } catch (IvalidGTSfileException e) {
+        } catch (InvalidGTSFileException e) {
             return e.getMessage();
         } catch (MalformedURLException e) {
             return e.getMessage();

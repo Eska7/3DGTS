@@ -1,6 +1,6 @@
 package com.iutbm.parser;
 
-import com.iutbm.dgts.exception.IvalidGTSfileException;
+import com.iutbm.dgts.exception.InvalidGTSFileException;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -9,7 +9,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +22,7 @@ public class GTSFile {
 	private List<Edge> edges;
 	private List<Triangle> triangles;
 
-	public GTSFile(URL url) throws IvalidGTSfileException {
+	public GTSFile(URL url) throws InvalidGTSFileException {
 		BufferedReader br;
 		try {
 			br = new BufferedReader(new InputStreamReader(url.openStream()));
@@ -60,7 +59,7 @@ public class GTSFile {
 					e = edges.get(Integer.parseInt(line.split(" ")[2]) - 1);
 					triangles.add(new Triangle(c, d, e));
 				} else
-					throw new IvalidGTSfileException(url.toString());
+					throw new InvalidGTSFileException(url.toString());
 			}
 			br.close();
 		} catch (IOException e) {
@@ -70,7 +69,7 @@ public class GTSFile {
 	}
 
 	@SuppressWarnings("resource")
-	public GTSFile(String path) throws IvalidGTSfileException {
+	public GTSFile(String path) throws InvalidGTSFileException {
 		File gts;
 		InputStreamReader isr;
 		BufferedReader br;
@@ -111,7 +110,7 @@ public class GTSFile {
 					e = edges.get(Integer.parseInt(line.split(" ")[2]) - 1);
 					triangles.add(new Triangle(c, d, e));
 				} else
-					throw new IvalidGTSfileException(path);
+					throw new InvalidGTSFileException(path);
 			}
 
 			br.close();
