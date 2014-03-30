@@ -23,24 +23,6 @@ public class Triangle {
 
 		triangleCoords = new float[9];
 
-		triangleCoords[0] = (float) a.getA().getX();
-		triangleCoords[1] = (float) a.getA().getY();
-		triangleCoords[2] = (float) a.getA().getZ();
-		
-		triangleCoords[3] = (float) a.getB().getX();
-		triangleCoords[4] = (float) a.getB().getY();
-		triangleCoords[5] = (float) a.getB().getZ();
-		
-		triangleCoords[6] = (float) b.getB().getX();
-		triangleCoords[7] = (float) b.getB().getY();
-		triangleCoords[8] = (float) b.getB().getZ();
-
-		for (int i = 0; i < 9; i += 1) {
-			System.out.print(triangleCoords[i] + " ");
-			if (i % 3 == 0)
-				System.out.println();
-		}
-
 		triangleCoords[0] = (float) (a.getA().getX() / 2);
 		triangleCoords[1] = (float) (a.getA().getY() / 2);
 		triangleCoords[2] = (float) (a.getA().getZ() / 2);
