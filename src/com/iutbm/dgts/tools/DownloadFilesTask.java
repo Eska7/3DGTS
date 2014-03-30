@@ -25,7 +25,7 @@ public class DownloadFilesTask extends AsyncTask<URL, Integer, Long> {
                 e.printStackTrace();
                 continue;
             }
-            Source.CONTENNU.put(urls[i].toString(),autre);
+            Source.CONTENU.put(urls[i].toString(),autre);
             totalSize += autre.getNbPoints();
             publishProgress((int) ((i / (float) count) * 100));
             // Escape early if cancel() is called

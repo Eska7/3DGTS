@@ -26,10 +26,10 @@ public class GtsTab {
     }
 
     public String getContent(){
-        if(Source.CONTENNU.containsKey(url.toString())) return Source.CONTENNU.get(url.toString()).toString();
+        if(Source.CONTENU.containsKey(url.toString())) return Source.CONTENU.get(url.toString()).toString();
         DownloadFilesTask inter = new DownloadFilesTask();
         inter.execute(url);
-        while (!Source.CONTENNU.containsKey(url.toString())){
+        while (!Source.CONTENU.containsKey(url.toString())){
             try {
                 Thread.sleep(200);
             } catch (InterruptedException e) {
@@ -37,7 +37,7 @@ public class GtsTab {
                 break;
             }
         }
-        return Source.CONTENNU.get(url.toString()).toString();
+        return Source.CONTENU.get(url.toString()).toString();
     }
 
     @Override

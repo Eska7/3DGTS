@@ -12,10 +12,10 @@ import java.util.HashMap;
 public class Source {
 
     public final static HashMap<String,String> LIEN;
-    public static HashMap<String,GTSFile> CONTENNU;
+    public static HashMap<String,GTSFile> CONTENU;
 
     static {
-        CONTENNU = new HashMap<String, GTSFile>();
+        CONTENU = new HashMap<String, GTSFile>();
         LIEN = new HashMap<String, String>();
         LIEN.put("head", "http://ns303921.ovh.net/gts/head.gts");
         LIEN.put("sphere5", "http://ns303921.ovh.net/gts/sphere5.gts");

@@ -7,7 +7,11 @@ package com.iutbm.dgts.exception;
 
 public class InvalidGTSFileException extends Exception {
 
-    private String filename;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private String filename;
 
     public InvalidGTSFileException(String filename){
         super("Invalid GTS file " + filename);
