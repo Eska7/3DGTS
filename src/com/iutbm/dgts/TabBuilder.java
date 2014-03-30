@@ -1,10 +1,5 @@
 package com.iutbm.dgts;
 
-import android.app.Activity;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,7 +25,7 @@ public class TabBuilder {
 
 	static {
         Integer i = 1;
-        for(Map.Entry<String,String> entry : Source.FICHIER.entrySet()){
+        for(Map.Entry<String,String> entry : Source.LIEN.entrySet()){
             addItem(new GraphTab(i.toString(), entry.getKey(), entry.getKey()));
         }
         addItem(new GraphTab("1","1a","http://gts.sourceforge.net/samples/bunny.gts.gz"));

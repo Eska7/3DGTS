@@ -27,7 +27,7 @@ public class DummyContent {
 
 	static {
         Integer i = 1;
-        for (Map.Entry<String,String> element : Source.FICHIER.entrySet()){
+        for (Map.Entry<String,String> element : Source.LIEN.entrySet()){
             System.out.println("@#! " + element.getKey() + " " + element.getValue());
             addItem(new GtsTab(i.toString(),element.getKey(),element.getValue()));
             i += 1;

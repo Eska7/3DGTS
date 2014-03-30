@@ -1,8 +1,11 @@
 package com.iutbm.dgts.dummy;
 
+import com.iutbm.dgts.Source;
 import com.iutbm.dgts.exception.InvalidGTSFileException;
+import com.iutbm.dgts.tools.DownloadFilesTask;
 import com.iutbm.parser.GTSFile;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -10,27 +13,33 @@ import java.net.URL;
  * A dummy item representing a piece of content.
  */
 public class GtsTab {
-    public String id;
-    public String name;
-    public String url;
 
-    public GtsTab(String id, String website_name,
-                  String website_url)
-    {
+    public String id;
+    protected String name;
+    protected URL url;
+
+    public GtsTab(String id, String website_name, String lien){
         this.id = id;
         this.name = website_name;
-        this.url = website_url;
+        try {
+            this.url = new URL(lien);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
     }
 
     public String getContent(){
-        try {
-            GTSFile file = new GTSFile(new URL(url));
-            return file.toString();
-        } catch (InvalidGTSFileException e) {
-            return e.getMessage();
-        } catch (MalformedURLException e) {
-            return e.getMessage();
+        DownloadFilesTask inter = new DownloadFilesTask();
+        inter.execute(url);
+        while (!Source.CONTENNU.containsKey(url.toString())){
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                break;
+            }
         }
+        return Source.CONTENNU.get(url.toString()).toString();
     }
 
     @Override
