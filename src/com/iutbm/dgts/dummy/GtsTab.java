@@ -1,11 +1,8 @@
 package com.iutbm.dgts.dummy;
 
 import com.iutbm.dgts.Source;
-import com.iutbm.dgts.exception.InvalidGTSFileException;
 import com.iutbm.dgts.tools.DownloadFilesTask;
-import com.iutbm.parser.GTSFile;
 
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -29,6 +26,7 @@ public class GtsTab {
     }
 
     public String getContent(){
+        if(Source.CONTENNU.containsKey(url.toString())) return Source.CONTENNU.get(url.toString()).toString();
         DownloadFilesTask inter = new DownloadFilesTask();
         inter.execute(url);
         while (!Source.CONTENNU.containsKey(url.toString())){

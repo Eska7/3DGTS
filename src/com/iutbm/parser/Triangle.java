@@ -11,11 +11,14 @@ public class Triangle {
 	float color[] = { 0.63671875f, 0.76953125f, 0.22265625f, 1.0f };
 
 	private float triangleCoords[];
+<<<<<<< HEAD
 	// private static float triangleCoords[] = {
 	// 0.0f, 0.622008459f, 0.0f, // top
 	// -0.5f, -0.311004243f, 0.0f, // bottom left
 	// 0.5f, -0.311004243f, 0.0f // bottom right
 	// };
+=======
+>>>>>>> f5c236a1f18c479759d3022cd9cb88c4fc311829
 
 	private Edge a, b, c;
 
@@ -26,6 +29,7 @@ public class Triangle {
 
 		triangleCoords = new float[9];
 
+<<<<<<< HEAD
 		triangleCoords[0] = (float) a.getA().getX();
 		triangleCoords[1] = (float) a.getA().getY();
 		triangleCoords[2] = (float) a.getA().getZ();
@@ -43,6 +47,19 @@ public class Triangle {
 			if (i % 3 == 0)
 				System.out.println();
 		}
+=======
+		triangleCoords[0] = (float) (a.getA().getX() / 2);
+		triangleCoords[1] = (float) (a.getA().getY() / 2);
+		triangleCoords[2] = (float) (a.getA().getZ() / 2);
+
+		triangleCoords[3] = (float) (a.getB().getX() / 2);
+		triangleCoords[4] = (float) (a.getB().getY() / 2);
+		triangleCoords[5] = (float) (a.getB().getZ() / 2);
+
+		triangleCoords[6] = (float) (b.getB().getX() / 2);
+		triangleCoords[7] = (float) (b.getB().getY() / 2);
+		triangleCoords[8] = (float) (b.getB().getZ() / 2);
+>>>>>>> f5c236a1f18c479759d3022cd9cb88c4fc311829
 
 		ByteBuffer bb = ByteBuffer.allocateDirect(triangleCoords.length * 4);
 		bb.order(ByteOrder.nativeOrder());
@@ -76,8 +93,29 @@ public class Triangle {
 		this.c = c;
 	}
 
+<<<<<<< HEAD
+=======
+	public void draw(GL10 gl) {
+		gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
+
+		gl.glColor4f(color[0], color[1], color[2], color[3]);
+		gl.glVertexPointer(COORDS_PER_VERTEX, GL10.GL_FLOAT, 0, vertexBuffer);
+		gl.glDrawArrays(GL10.GL_TRIANGLES, 0, triangleCoords.length
+				/ COORDS_PER_VERTEX);
+
+		gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
+	}
+
+>>>>>>> f5c236a1f18c479759d3022cd9cb88c4fc311829
 	@Override
 	public String toString() {
-		return "Triangle\n[" + a + ", " + b + ", " + c + "\n]";
+		// return "Triangle\n[" + a + ", " + b + ", " + c + "\n]";
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < 9; i += 1) {
+			if (i % 3 == 0)
+				sb.append("\n");
+			sb.append(triangleCoords[i] + "   ");
+		}
+		return sb.toString() + "\n";
 	}
 }
