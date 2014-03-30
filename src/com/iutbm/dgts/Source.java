@@ -2,7 +2,6 @@ package com.iutbm.dgts;
 
 import com.iutbm.parser.GTSFile;
 
-import java.io.BufferedReader;
 import java.util.HashMap;
 
 /**
