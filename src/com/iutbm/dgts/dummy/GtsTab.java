@@ -31,7 +31,7 @@ public class GtsTab {
         inter.execute(url);
         while (!Source.CONTENNU.containsKey(url.toString())){
             try {
-                Thread.sleep(2000);
+                Thread.sleep(200);
             } catch (InterruptedException e) {
                 e.printStackTrace();
                 break;
